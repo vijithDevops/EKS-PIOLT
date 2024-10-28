@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-piolt-deployment
+  labels:
+    app: eks-piolt
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eks-piolt
+  template:
+    metadata:
+      labels:
+        app: eks-piolt
+    spec:
+      containers:
+        - name: eks-piolt-container
+          image: <ECR_REGISTRY>/<ECR_REPOSITORY>:<IMAGE_TAG>
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9005
