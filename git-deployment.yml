@@ -15,7 +15,7 @@ spec:
         app: eks-piolt
     spec:
       containers:
-        - name: eks-piolt-container
+        - name: eks-piolt-ecr
           image: 452295101062.dkr.ecr.me-south-1.amazonaws.com/eks-piolt-ecr:latest
           #image: 452295101062.dkr.ecr.me-south-1.amazonaws.com/eks-piolt-ecr:${{secrets.IMAGETAG_K8s}}
           imagePullPolicy: Always
