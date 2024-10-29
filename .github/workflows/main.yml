@@ -44,6 +44,6 @@ jobs:
           kubectl apply -f git-deployment.yml    
       - name: update image deployment
         run: |
-          kubectl set image deployment/eks-piolt-deployment eks-piolt-ecr=452295101062.dkr.ecr.me-south-1.amazonaws.com/eks-piolt-ecr:${{ steps.build-image.outputs.IMAGE_TAG }}
+          kubectl set image deployment/eks-piolt-deployment eks-piolt-ecr=452295101062.dkr.ecr.me-south-1.amazonaws.com/eks-piolt-ecr:$IMAGE_TAG
           kubectl rollout status deployment/${{ secrets.EKS_DEPLOYMENT_NAME }}
 
