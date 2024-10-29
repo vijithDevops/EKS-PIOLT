@@ -15,15 +15,14 @@ spec:
         app: eks-piolt
     spec:
       containers:
-      - name: eks-piolt-ecr
+        - name: eks-piolt-ecr
           image: DOCKER_IMAGE
-          #image: 452295101062.dkr.ecr.me-south-1.amazonaws.com/eks-piolt-ecr:latest
-          #image: 452295101062.dkr.ecr.me-south-1.amazonaws.com/eks-piolt-ecr:${{secrets.IMAGETAG_K8s}}
           imagePullPolicy: Always
           ports:
-          - containerPort: 9005
-    strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
+            - containerPort: 9005
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: 1
+
