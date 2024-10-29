@@ -30,23 +30,18 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
-          IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}-${{
-            steps.get-timestamp.outputs.timestamp }}
-        run: >
+          IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}-${{ steps.get-timestamp.outputs.timestamp }}
+        run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
-
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-      - name: Configure kubectl
-        uses: aws-actions/eks-update-kubeconfig@v1
-        with:
-          cluster-name: ${{ secrets.EKS_CLUSTER_NAME }}
-          region: me-south-1
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region me-south-1
       - name: Update Kubernetes deployment
-        run: >
-          kubectl set image deployment/${{ secrets.EKS_DEPLOYMENT_NAME }} \
-            ${{ secrets.CONTAINER_NAME }}=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        run: |
+          kubectl set image deployment/${{ secrets.EKS_DEPLOYMENT_NAME }} ${{ secrets.CONTAINER_NAME }}=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       - name: Verify deployment
         run: |
           kubectl rollout status deployment/${{ secrets.EKS_DEPLOYMENT_NAME }}
+
