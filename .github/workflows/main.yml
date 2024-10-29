@@ -41,7 +41,7 @@ jobs:
           aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region me-south-1
       - name: Update Kubernetes deployment
         run: |
-         kubectl create deployment git-deployment.yml
+          kubectl create deployment git-deployment.yml
           kubectl set image deployment/${{ secrets.EKS_DEPLOYMENT_NAME }} ${{ secrets.CONTAINER_NAME }}=$ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.build-image.outputs.IMAGE_TAG }}  
       - name: Verify deployment
        # run: |
