@@ -43,7 +43,7 @@ jobs:
         run: |
           kubectl apply -f git-deployment.yml    
       - name: update image deployment
-        run: |
-          kubectl set image deployment/${{ secrets.EKS_DEPLOYMENT_NAME }} ${{ secrets.CONTAINER_NAME }}=$ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.build-image.outputs.IMAGE_TAG }}
+        #run: |
+         # kubectl set image deployment/${{ secrets.EKS_DEPLOYMENT_NAME }} ${{ secrets.CONTAINER_NAME }}=$ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.build-image.outputs.IMAGE_TAG }}
         #  kubectl rollout status deployment/${{ secrets.EKS_DEPLOYMENT_NAME }}
 
