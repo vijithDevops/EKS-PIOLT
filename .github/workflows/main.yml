@@ -2,7 +2,7 @@ name: Deploy to ECR
 on:
   push:
     branches:
-      - main
+      - ray-out-from
 env:
   ECR_REPOSITORY: eks-piolt-ecr
   EKS_CLUSTER_NAME: EKS-DEMO-PIOLT
